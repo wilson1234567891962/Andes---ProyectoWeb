@@ -80,7 +80,7 @@
       <!-- Navigation -->
 
       <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-        <li class="items-center">
+        <li class="items-center" *ngIf="false">
           <a
             [routerLink]="['/admin/dashboard']"
             class="text-xs uppercase py-3 font-bold block"
@@ -123,6 +123,27 @@
               "
             ></i>
             Bodegas
+          </a>
+        </li>
+        <li class="items-center">
+          <a
+            [routerLink]="['/admin/maps']"
+            class="text-xs uppercase py-3 font-bold block"
+            routerLinkActive
+            #adminMaps="routerLinkActive"
+            [ngClass]="
+              adminMaps.isActive
+                ? 'text-red-600 hover:text-red-700'
+                : 'text-blueGray-700 hover:text-blueGray-500'
+            "
+          >
+            <i
+              class="fas fa-map-marked mr-2 text-sm"
+              [ngClass]="
+                adminMaps.isActive ? 'opacity-75' : 'text-blueGray-300'
+              "
+            ></i>
+            Logistica
           </a>
         </li>
       </ul>

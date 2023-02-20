@@ -35,11 +35,11 @@ export class UtilitiesService {
 
   conversionDate(inputDataPicker: Date, validationDate: string) {
     const date = new Date(this.changeFormatDate(validationDate));
-    const day = date.getDay();
+    const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
-    inputDataPicker.setDate(inputDataPicker.getDate() + 1);
-    return day === inputDataPicker.getDay() && month === inputDataPicker.getMonth() && year === inputDataPicker.getFullYear();
+    inputDataPicker.setDate(inputDataPicker.getDate()+1);
+    return day === inputDataPicker.getDate() && month === inputDataPicker.getMonth() && year === inputDataPicker.getFullYear();
   }
 
   changeFormatDate(value): string {
@@ -51,9 +51,9 @@ export class UtilitiesService {
 
   betweenDate(inputStartDataPicker: Date, inputEndDatePicker: Date, validationDate: string) {
     const date = new Date(this.changeFormatDate(validationDate));
-    inputStartDataPicker.setDate(inputStartDataPicker.getDate() + 1);
+    inputStartDataPicker.setDate(inputStartDataPicker.getDate());
     inputEndDatePicker.setDate(inputEndDatePicker.getDate() + 1);
-    return inputStartDataPicker<=date && inputEndDatePicker>=date;
+    return inputStartDataPicker <= date && inputEndDatePicker >= date;
   }
 
 
