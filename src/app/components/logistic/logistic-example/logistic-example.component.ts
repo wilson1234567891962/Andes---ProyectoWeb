@@ -9,10 +9,8 @@ import {ToastrService} from 'ngx-toastr';
   templateUrl: './logistic-example.component.html',
 })
 export class LogisticExampleComponent implements OnInit {
-  endDay = '';
-  startDay = '';
-  category = '';
-  store = '';
+
+  state='';
   searchIsVisible = false;
   visibleDetail = false;
   selectionIndex = 1;
@@ -44,34 +42,74 @@ export class LogisticExampleComponent implements OnInit {
 
   getCategories(): void {
     for (const item of this.product) {
-      if (!this.categoryList.includes(item.detail.category)) {
-        this.categoryList.push(item.detail.category);
+      if (!this.categoryList.includes(item.state)) {
+        this.categoryList.push(item.state);
       }
     }
   }
 
   getStore(): void {
-    if (this.storeService.product === undefined) {
-      this.storeService.getStore(this.loginService.tokenSecret).subscribe(it => {
-        this.storeService.product = it.data;
-        this.product = it.data;
+        this.storeService.product = [
+          {
+            id: 1,
+            name: 'Juan Perez',
+            address: 'Calle 25 # 25-25',
+            phone: 3135946070,
+            state: 'PENDING',
+          }
+        ];
+        this.product = [
+          {
+            id: 1,
+            name: 'Pedro Gomez',
+            address: 'Calle 25 # 25-25',
+            phone: 3129445070,
+            state: 'PENDING',
+          },{
+            id: 2,
+            name: 'Manuel Pedraza',
+            address: 'Calle 1 # 15-25',
+            phone: 3145746070,
+            state: 'PENDING',
+          },{
+            id: 3,
+            name: 'David Rodriguez',
+            address: 'Calle 35 # 75-15',
+            phone: 3155946070,
+            state: 'delivery',
+          },{
+            id: 4,
+            name: 'Manuela Perez',
+            address: 'Calle 28 # 75-35',
+            phone: 3165946070,
+            state: 'PENDING',
+          },{
+            id: 5,
+            name: 'Maria Ruiz',
+            address: 'Calle 100 # 5-35',
+            phone: 3175946070,
+            state: 'PENDING',
+          },{
+            id: 6,
+            name: 'Sergio Perez',
+            address: 'Calle 115 # 35-5',
+            phone: 3185946070,
+            state: 'PENDING',
+          },{
+            id: 7,
+            name: 'Sara Rincon',
+            address: 'Calle 40 # 55-25',
+            phone: 3195946070,
+            state: 'delivery',
+          }
+        ];
         this.setProduct();
-      }, error => {
-        this.toastr.error(error.error.code +': ' +  error.error.message, 'Error', {
-          timeOut: 7000,
-        });
-      })
-
-    } else {
-      this.product = this.storeService.product;
-      this.setProduct();
-    }
   }
 
   setProduct(): void {
     for (const item of this.product) {
-      if (!this.storeList.includes(item.store)) {
-        this.storeList.push(item.store);
+      if (!this.storeList.includes(item.name)) {
+        this.storeList.push(item.name);
       }
     }
     this.goItemPagination(1, this.product);
@@ -94,8 +132,7 @@ export class LogisticExampleComponent implements OnInit {
 
   onChangeEvent(event: any) {
     const text = event.target.value.toString().toLowerCase();
-    this.store = '';
-    this.category = '';
+    this.state = '';
     if (text.length < 0) {
       this.searchIsVisible = false;
       this.productSearch = [];
@@ -104,9 +141,12 @@ export class LogisticExampleComponent implements OnInit {
     }
     this.searchIsVisible = true;
     const result = this.product.filter(it =>
-      it.importer.toString().toLowerCase().includes(text) ||
-      it.store.toString().toLowerCase().includes(text) ||
-      it.product.toString().toLowerCase().includes(text));
+      it.id.toString()===text ||
+      it.name.toString().toLowerCase().includes(text) ||
+      it.state.toString().toLowerCase().includes(text)||
+      it.address.toString().toLowerCase().includes(text)||
+      it.phone.toString().toLowerCase().includes(text)
+    );
     this.productSearch = result;
     this.productsTmp = new Array();
     this.selectionIndex = 1;
@@ -119,18 +159,11 @@ export class LogisticExampleComponent implements OnInit {
   }
 
   search() {
-    if (this.store === '' && this.category === '' && this.startDay === '' && this.endDay === '') {
+    if (this.state === '') {
       return;
     }
     const result = this.product.filter(it =>
-      it.store.toString().toLowerCase() === this.store.toLowerCase() ||
-      it.detail.category.toString().toLowerCase() === this.category.toLowerCase().trim()
-      || (this.startDay.length > 0 && this.endDay.length === 0 &&
-        this.utilitiesService.conversionDate(new Date(this.startDay), it.detail.expiration))
-      || (this.endDay.length > 0 && this.startDay.length === 0 &&
-        this.utilitiesService.conversionDate(new Date(this.endDay), it.detail.expiration))
-      || (this.endDay.length > 0 && this.startDay.length > 0 &&
-        this.utilitiesService.betweenDate(new Date(this.startDay), new Date(this.endDay), it.detail.expiration))
+      it.state.toString().toLowerCase() === this.state.toLowerCase()
     );
     this.searchIsVisible = true;
     this.productSearch = result;
@@ -140,10 +173,7 @@ export class LogisticExampleComponent implements OnInit {
   }
 
   clean() {
-    this.store = '';
-    this.category = '';
-    this.startDay = '';
-    this.endDay = '';
+    this.state = '';
     this.searchIsVisible = false;
     this.productSearch = [];
     this.goItemPagination(this.selectionIndex, this.product);

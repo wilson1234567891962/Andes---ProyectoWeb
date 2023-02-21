@@ -16,19 +16,11 @@
   </div>
 
   <div class="containerSelector mb-2">
-    <label for="small" class="block mb-2 mt-2 font-medium text-gray-900 dark:text-white ml-3 text-lg font-semibold">Categorias</label>
-    <select id="small" class="selectWinery minimal"  [(ngModel)]="category">
+    <label for="small" class="block mb-2 mt-2 font-medium text-gray-900 dark:text-white ml-3 text-lg font-semibold">Estado</label>
+    <select id="small" class="selectWinery minimal"  [(ngModel)]="state">
       <option [value]="item" *ngFor="let item of categoryList" >{{item}}</option>
     </select>
-    <label for="default" class="block mb-2 mt-2 font-medium text-gray-900 dark:text-white ml-3 text-lg font-semibold">Bodegas</label>
-    <select id="default" class="selectWinery minimal" [(ngModel)]="store" >
-      <option [value]="item" *ngFor="let item of storeList" >{{item}}</option>
-    </select>
-    <label class="block mb-2 mt-2 font-medium text-gray-900 dark:text-white ml-3 text-lg font-semibold">Fecha de inicio</label>
-    <input [(ngModel)]="startDay" [ngModelOptions]="{standalone: true}" type="date"/>
-    <label class="block mb-2 mt-2 font-medium text-gray-900 dark:text-white ml-3 text-lg font-semibold">Fecha de fin</label>
-    <input [(ngModel)]="endDay" [ngModelOptions]="{standalone: true}" type="date"/>
-    <div>
+     <div>
       <button type="button" class="buttonSearch colorRed m-3 ml-3 " (click)="search()">Buscar</button>
       <button type="button" class="buttonSearch colorGrey m-3" (click)="clean()">Limpiar</button>
     </div>
@@ -79,7 +71,7 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
         >
-          PRODUCTO
+          ID
         </th>
         <th
           class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -89,7 +81,7 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
         >
-          BODEGA
+          NOMBRE
         </th>
         <th
           class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -99,7 +91,7 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
         >
-          FABRICANTE
+          DIRECCION
         </th>
         <th
           class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -109,7 +101,7 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
         >
-          IMPORTADOR
+          TELEFONO
         </th>
         <th
           class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -119,7 +111,7 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
         >
-          CANTIDAD
+          ESTADO
         </th>
         <th
           class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -136,37 +128,33 @@
         <th
           class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
         >
-          <img
-            src={{item.imageProduct}}
-            class="h-12 w-12 bg-white rounded-full border"
-            alt="..."
-          />
+
           <span
             class="ml-3 font-bold"
             [ngClass]="color === 'light' ? 'text-blueGray-600' : 'text-white'"
           >
-              {{item.product}}
+              {{item.id}}
             </span>
         </th>
         <td
           class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
         >
-          {{item.store}}
+          {{item.name}}
         </td>
         <td
           class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-        >{{item.supplier}}
+        >{{item.address}}
         </td>
         <td
           class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
         >
-          {{item.importer}}
+          {{item.phone}}
         </td>
         <td
           class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
         >
           <div class="flex items-center">
-            <span class="mr-2"> {{item.amount}}</span>
+            <span class="mr-2"> {{item.state}}</span>
           </div>
         </td>
       </tr>
