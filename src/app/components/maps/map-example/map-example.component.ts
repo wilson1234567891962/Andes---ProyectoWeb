@@ -1,88 +1,159 @@
-import { Component, OnInit } from "@angular/core";
-
-declare const google: any;
+import {Component, Input, OnInit} from '@angular/core';
+import {UtilitiesService} from '../../../services/utilities.service';
+import {StoreService} from '../../../services/store.service';
+import {LoginService} from '../../../services/login.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: "app-map-example",
-  templateUrl: "./map-example.component.html",
+  selector: 'app-map-example',
+  templateUrl: './map-example.component.html',
 })
 export class MapExampleComponent implements OnInit {
-  constructor() {}
+  endDay = '';
+  startDay = '';
+  category = '';
+  store = '';
+  searchIsVisible = false;
+  visibleDetail = false;
+  selectionIndex = 1;
+  productsTmp = [];
+  detailProduct: any = {};
+  productSearch = [];
+  categoryList = [];
+  storeList = [];
+  product = [];
+
+  @Input()
+  get color(): string {
+    return this._color;
+  }
+
+  set color(color: string) {
+    this._color = color !== 'light' && color !== 'dark' ? 'light' : color;
+  }
+
+  private _color = 'light';
+
+  constructor(private utilitiesService: UtilitiesService, private storeService: StoreService, private loginService: LoginService,
+              private toastr: ToastrService) {
+  }
 
   ngOnInit(): void {
-    let map = document.getElementById("map-canvas");
-    let lat = map.getAttribute("data-lat");
-    let lng = map.getAttribute("data-lng");
+    this.getStore();
+  }
 
-    const myLatlng = new google.maps.LatLng(lat, lng);
-    const mapOptions = {
-      zoom: 12,
-      scrollwheel: false,
-      center: myLatlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      styles: [
-        {
-          featureType: "administrative",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#444444" }],
-        },
-        {
-          featureType: "landscape",
-          elementType: "all",
-          stylers: [{ color: "#f2f2f2" }],
-        },
-        {
-          featureType: "poi",
-          elementType: "all",
-          stylers: [{ visibility: "off" }],
-        },
-        {
-          featureType: "road",
-          elementType: "all",
-          stylers: [{ saturation: -100 }, { lightness: 45 }],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "all",
-          stylers: [{ visibility: "simplified" }],
-        },
-        {
-          featureType: "road.arterial",
-          elementType: "labels.icon",
-          stylers: [{ visibility: "off" }],
-        },
-        {
-          featureType: "transit",
-          elementType: "all",
-          stylers: [{ visibility: "off" }],
-        },
-        {
-          featureType: "water",
-          elementType: "all",
-          stylers: [{ color: "#feb2b2" }, { visibility: "on" }],
-        },
-      ],
-    };
+  getCategories(): void {
+    for (const item of this.product) {
+      if (!this.categoryList.includes(item.detail.category)) {
+        this.categoryList.push(item.detail.category);
+      }
+    }
+  }
 
-    map = new google.maps.Map(map, mapOptions);
+  getStore(): void {
+    if (this.storeService.product === undefined) {
+      this.storeService.getStore(this.loginService.tokenSecret).subscribe(it => {
+        this.storeService.product = it.data;
+        this.product = it.data;
+        this.setProduct();
+      }, error => {
+        this.toastr.error(error.error.code +': ' +  error.error.message, 'Error', {
+          timeOut: 7000,
+        });
+      })
 
-    const marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      animation: google.maps.Animation.DROP,
-      title: "Hello World!",
-    });
+    } else {
+      this.product = this.storeService.product;
+      this.setProduct();
+    }
+  }
 
-    const contentString =
-      '<div class="info-window-content"><h2>Notus Angular</h2>' +
-      "<p>A beautiful UI Kit and Admin for Tailwind CSS. It is Free and Open Source.</p></div>";
+  setProduct(): void {
+    for (const item of this.product) {
+      if (!this.storeList.includes(item.store)) {
+        this.storeList.push(item.store);
+      }
+    }
+    this.goItemPagination(1, this.product);
+    this.getCategories()
+  }
 
-    const infowindow = new google.maps.InfoWindow({
-      content: contentString,
-    });
+  goItemPagination(count, data) {
+    this.visibleDetail = false;
+    data = !this.searchIsVisible ? this.product : this.productSearch;
+    const paginate = this.utilitiesService.paginate(data.length, count, 5, 5);
+    if (count < 1 || count > paginate.totalPages) {
+      return;
+    }
+    this.selectionIndex = count;
+    this.productsTmp = new Array();
+    for (let i = paginate.startIndex; i <= paginate.endIndex; i++) {
+      this.productsTmp.push(data[i]);
+    }
+  }
 
-    google.maps.event.addListener(marker, "click", function () {
-      infowindow.open(map, marker);
-    });
+  onChangeEvent(event: any) {
+    const text = event.target.value.toString().toLowerCase();
+    this.store = '';
+    this.category = '';
+    if (text.length < 0) {
+      this.searchIsVisible = false;
+      this.productSearch = [];
+      this.goItemPagination(this.selectionIndex, this.product);
+      return;
+    }
+    this.searchIsVisible = true;
+    const result = this.product.filter(it =>
+      it.importer.toString().toLowerCase().includes(text) ||
+      it.store.toString().toLowerCase().includes(text) ||
+      it.product.toString().toLowerCase().includes(text));
+    this.productSearch = result;
+    this.productsTmp = new Array();
+    this.selectionIndex = 1;
+    this.goItemPagination(this.selectionIndex, result);
+  }
+
+  checkDetailProduct(index) {
+    this.visibleDetail = true;
+    this.detailProduct = !this.searchIsVisible ? this.product[index].detail : this.productSearch[index].detail;
+  }
+
+  search() {
+    if (this.store === '' && this.category === '' && this.startDay === '' && this.endDay === '') {
+      return;
+    }
+    const result = this.product.filter(it =>
+      it.store.toString().toLowerCase() === this.store.toLowerCase() ||
+      it.detail.category.toString().toLowerCase() === this.category.toLowerCase().trim()
+      || (this.startDay.length > 0 && this.endDay.length === 0 &&
+        this.utilitiesService.conversionDate(new Date(this.startDay), it.detail.expiration))
+      || (this.endDay.length > 0 && this.startDay.length === 0 &&
+        this.utilitiesService.conversionDate(new Date(this.endDay), it.detail.expiration))
+      || (this.endDay.length > 0 && this.startDay.length > 0 &&
+        this.utilitiesService.betweenDate(new Date(this.startDay), new Date(this.endDay), it.detail.expiration))
+    );
+    this.searchIsVisible = true;
+    this.productSearch = result;
+    this.productsTmp = new Array();
+    this.selectionIndex = 1;
+    this.goItemPagination(this.selectionIndex, result);
+  }
+
+  clean() {
+    this.store = '';
+    this.category = '';
+    this.startDay = '';
+    this.endDay = '';
+    this.searchIsVisible = false;
+    this.productSearch = [];
+    this.goItemPagination(this.selectionIndex, this.product);
+  }
+
+  convertDate(value) {
+    return new Date(this.utilitiesService.changeFormatDate(value));
+  }
+
+  checkExpiration(value) {
+    return !this.utilitiesService.validatorDate(this.convertDate(value), 3)
   }
 }
