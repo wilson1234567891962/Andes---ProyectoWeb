@@ -6,9 +6,9 @@ let MapsComponent = class MapsComponent {
 };
 MapsComponent = __decorate([
     Component({
-        selector: "app-maps",
-        templateUrl: "./maps.component.html",
+        selector: "app-logistic",
+        templateUrl: "./logistic.component.html",
     })
 ], MapsComponent);
 export { MapsComponent };
-//# sourceMappingURL=maps.component.js.map
+//# sourceMappingURL=logistic.component.js.map

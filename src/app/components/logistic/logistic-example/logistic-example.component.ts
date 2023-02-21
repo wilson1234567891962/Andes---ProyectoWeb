@@ -5,10 +5,10 @@ import {LoginService} from '../../../services/login.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: 'app-map-example',
-  templateUrl: './map-example.component.html',
+  selector: 'app-logistic-example',
+  templateUrl: './logistic-example.component.html',
 })
-export class MapExampleComponent implements OnInit {
+export class LogisticExampleComponent implements OnInit {
   endDay = '';
   startDay = '';
   category = '';

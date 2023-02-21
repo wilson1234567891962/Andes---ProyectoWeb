@@ -7,7 +7,7 @@ import { AuthComponent } from './layouts/auth/auth.component';
 
 // admin views
 import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
-import { MapsComponent } from './views/admin/maps/maps.component';
+import { LogisticComponent } from './views/admin/logistic/logistic.component';
 import { SettingsComponent } from './views/admin/settings/settings.component';
 import { TablesComponent } from './views/admin/tables/tables.component';
 
@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'tables', component: TablesComponent },
-      { path: 'maps', component: MapsComponent },
+      { path: 'logistic', component: LogisticComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

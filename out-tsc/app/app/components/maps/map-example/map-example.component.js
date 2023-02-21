@@ -74,9 +74,9 @@ let MapExampleComponent = class MapExampleComponent {
 };
 MapExampleComponent = __decorate([
     Component({
-        selector: "app-map-example",
-        templateUrl: "./map-example.component.html",
+        selector: "app-logistic-example",
+        templateUrl: "./logistic-example.component.html",
     })
 ], MapExampleComponent);
 export { MapExampleComponent };
-//# sourceMappingURL=map-example.component.js.map
+//# sourceMappingURL=logistic-example.component.js.map

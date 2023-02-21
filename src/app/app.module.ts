@@ -10,7 +10,7 @@ import { AuthComponent } from './layouts/auth/auth.component';
 
 // admin views
 import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
-import { MapsComponent } from './views/admin/maps/maps.component';
+import { LogisticComponent } from './views/admin/logistic/logistic.component';
 import { SettingsComponent } from './views/admin/settings/settings.component';
 import { TablesComponent } from './views/admin/tables/tables.component';
 
@@ -40,7 +40,7 @@ import { FooterComponent } from './components/footers/footer/footer.component';
 import { FooterSmallComponent } from './components/footers/footer-small/footer-small.component';
 import { HeaderStatsComponent } from './components/headers/header-stats/header-stats.component';
 import { IndexNavbarComponent } from './components/navbars/index-navbar/index-navbar.component';
-import { MapExampleComponent } from './components/maps/map-example/map-example.component';
+import { LogisticExampleComponent } from './components/logistic/logistic-example/logistic-example.component';
 import { IndexDropdownComponent } from './components/dropdowns/index-dropdown/index-dropdown.component';
 import { TableDropdownComponent } from './components/dropdowns/table-dropdown/table-dropdown.component';
 import { PagesDropdownComponent } from './components/dropdowns/pages-dropdown/pages-dropdown.component';
@@ -76,13 +76,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     CardStatsComponent,
     CardTableComponent,
     HeaderStatsComponent,
-    MapExampleComponent,
+    LogisticExampleComponent,
     AuthNavbarComponent,
     AdminNavbarComponent,
     IndexNavbarComponent,
     AdminComponent,
     AuthComponent,
-    MapsComponent,
+    LogisticComponent,
     SettingsComponent,
     TablesComponent,
     LoginComponent,
