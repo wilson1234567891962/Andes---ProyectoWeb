@@ -15,7 +15,7 @@ export class LogisticExampleComponent implements OnInit {
   visibleDetail = false;
   selectionIndex = 1;
   productsTmp = [];
-  detailProduct: any = {};
+  detailProduct: any = [];
   productSearch = [];
   categoryList = [];
   storeList = [];
@@ -101,7 +101,7 @@ export class LogisticExampleComponent implements OnInit {
     }
     this.searchIsVisible = true;
     const result = this.product.filter(it =>
-      it.id.toString()===text ||
+      it.idOrder.toString()===text ||
       it.name.toString().toLowerCase().includes(text) ||
       it.state.toString().toLowerCase().includes(text)||
       it.address.toString().toLowerCase().includes(text)||
@@ -114,8 +114,10 @@ export class LogisticExampleComponent implements OnInit {
   }
 
   checkDetailProduct(index) {
-    this.visibleDetail = true;
-    this.detailProduct = !this.searchIsVisible ? this.product[index].detail : this.productSearch[index].detail;
+     const store = this.productsTmp[index];
+     if(!this.detailProduct.some(elem => elem === store)){
+       this.detailProduct.push(store);
+     }
   }
 
   search() {
@@ -137,13 +139,5 @@ export class LogisticExampleComponent implements OnInit {
     this.searchIsVisible = false;
     this.productSearch = [];
     this.goItemPagination(this.selectionIndex, this.product);
-  }
-
-  convertDate(value) {
-    return new Date(this.utilitiesService.changeFormatDate(value));
-  }
-
-  checkExpiration(value) {
-    return !this.utilitiesService.validatorDate(this.convertDate(value), 3)
   }
 }

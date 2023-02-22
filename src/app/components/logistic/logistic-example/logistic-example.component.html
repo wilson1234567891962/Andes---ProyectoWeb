@@ -133,7 +133,7 @@
             class="ml-3 font-bold"
             [ngClass]="color === 'light' ? 'text-blueGray-600' : 'text-white'"
           >
-              {{item.id}}
+              {{item.idOrder}}
             </span>
         </th>
         <td
@@ -228,7 +228,7 @@
   </nav>
 </div>
 
-<div *ngIf="visibleDetail">
+<div>
   <div
     class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
     [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'"
@@ -240,7 +240,7 @@
             class="font-semibold text-lg"
             [ngClass]="color === 'light' ? 'text-blueGray-700' : 'text-white'"
           >
-            DETALLE DEL PRODUCTO
+            SELECCION DE ORDENES
           </h3>
         </div>
       </div>
@@ -258,7 +258,18 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
           >
-            CATEGORIA
+            ID STORE
+          </th>
+
+          <th
+            class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          >
+            ID ORDER
           </th>
           <th
             class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -268,7 +279,7 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
           >
-            CADUCIDAD
+            ID ORDER
           </th>
           <th
             class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -278,31 +289,48 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
           >
-            LOCALIZACION
+            CANTIDAD SOLICITADA
+          </th>
+          <th
+            class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          >
+            CANTIDAD DISPONIBLE
           </th>
         </tr>
         </thead>
-        <tbody>
+        <tbody  >
         <tr
-          [ngClass]="
-          checkExpiration(detailProduct.expiration)
-          ?'text-red-600 border-red-700'
-          :'bg-blueGray-50 text-blueGray-500 border-blueGray-100'">
-
+          *ngFor="let item of detailProduct; index as i;"
+          class="bg-blueGray-50 text-blueGray-500 border-blueGray-100">
           <td
             class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
           >
-            {{detailProduct.category}}
+            {{item.detail.idStore}}
           </td>
           <td
             class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
           >
-            {{convertDate(detailProduct.expiration)| date:'medium' }}
+            {{item.idOrder}}
           </td>
           <td
             class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
           >
-            {{detailProduct.locate}}
+            {{item.detail.product}}
+          </td>
+          <td
+            class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+          >
+            {{item.amount}}
+          </td>
+          <td
+            class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+          >
+            {{item.detail.availableAmount}}
           </td>
         </tr>
         </tbody>
