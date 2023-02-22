@@ -19,12 +19,14 @@ import { RegisterComponent } from './views/auth/register/register.component';
 import { IndexComponent } from './views/index/index.component';
 import { LandingComponent } from './views/landing/landing.component';
 import { ProfileComponent } from './views/profile/profile.component';
+import {RoutingGuard} from './guard/routing.guard';
 
 const routes: Routes = [
   // admin views
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate:[RoutingGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'settings', component: SettingsComponent },
@@ -44,10 +46,10 @@ const routes: Routes = [
     ],
   },
   // no layout views
-  { path: 'profile', component: ProfileComponent },
-  { path: 'landing', component: LandingComponent },
-  { path: '', component: AdminComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: 'profile', component: ProfileComponent,canActivate:[RoutingGuard] },
+  { path: 'landing', component: LandingComponent,canActivate:[RoutingGuard] },
+  { path: '', component: AuthComponent,canActivate:[RoutingGuard]},
+  { path: '**', component: AuthComponent, pathMatch: 'full' },
 ];
 
 @NgModule({
