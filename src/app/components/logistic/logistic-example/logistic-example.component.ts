@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UtilitiesService} from '../../../services/utilities.service';
-import {StoreService} from '../../../services/store.service';
 import {LoginService} from '../../../services/login.service';
 import {ToastrService} from 'ngx-toastr';
+import {OrderService} from '../../../services/order.service';
 
 @Component({
   selector: 'app-logistic-example',
@@ -32,12 +32,12 @@ export class LogisticExampleComponent implements OnInit {
 
   private _color = 'light';
 
-  constructor(private utilitiesService: UtilitiesService, private storeService: StoreService, private loginService: LoginService,
+  constructor(private utilitiesService: UtilitiesService, private orderService: OrderService, private loginService: LoginService,
               private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
-    this.getStore();
+    this.getOrders();
   }
 
   getCategories(): void {
@@ -48,62 +48,22 @@ export class LogisticExampleComponent implements OnInit {
     }
   }
 
-  getStore(): void {
-        this.storeService.product = [
-          {
-            id: 1,
-            name: 'Juan Perez',
-            address: 'Calle 25 # 25-25',
-            phone: 3135946070,
-            state: 'PENDING',
-          }
-        ];
-        this.product = [
-          {
-            id: 1,
-            name: 'Pedro Gomez',
-            address: 'Calle 25 # 25-25',
-            phone: 3129445070,
-            state: 'PENDING',
-          },{
-            id: 2,
-            name: 'Manuel Pedraza',
-            address: 'Calle 1 # 15-25',
-            phone: 3145746070,
-            state: 'PENDING',
-          },{
-            id: 3,
-            name: 'David Rodriguez',
-            address: 'Calle 35 # 75-15',
-            phone: 3155946070,
-            state: 'delivery',
-          },{
-            id: 4,
-            name: 'Manuela Perez',
-            address: 'Calle 28 # 75-35',
-            phone: 3165946070,
-            state: 'PENDING',
-          },{
-            id: 5,
-            name: 'Maria Ruiz',
-            address: 'Calle 100 # 5-35',
-            phone: 3175946070,
-            state: 'PENDING',
-          },{
-            id: 6,
-            name: 'Sergio Perez',
-            address: 'Calle 115 # 35-5',
-            phone: 3185946070,
-            state: 'PENDING',
-          },{
-            id: 7,
-            name: 'Sara Rincon',
-            address: 'Calle 40 # 55-25',
-            phone: 3195946070,
-            state: 'delivery',
-          }
-        ];
+  getOrders(): void {
+    if (this.orderService.orders === undefined) {
+      this.orderService.getOrders(this.loginService.tokenSecret).subscribe(it => {
+        this.orderService.orders = it.data;
+        this.product = it.data;
         this.setProduct();
+      }, error => {
+        this.toastr.error(error.error.code +': ' +  error.error.message, 'Error', {
+          timeOut: 7000,
+        });
+      })
+
+    } else {
+      this.product = this.orderService.orders;
+      this.setProduct();
+    }
   }
 
   setProduct(): void {
