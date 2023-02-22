@@ -13,7 +13,7 @@ export class OrderService {
   private URL_SERVICES  = window.location.host.includes('localhost') ? environmentDev.URL_BACKEND_LOCAL : environmentProd.URL_PRODUCTION;
   private _orders: any = undefined;
 
-  constructor(private communicatorService: CommunicatorService, private loginService: LoginService) { }
+  constructor(private communicatorService: CommunicatorService) { }
 
   getOrders(token: string): Observable<any>  {
     return this.communicatorService.http_get( this.URL_SERVICES + 'ORDER/getOrder/', token);
