@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login().subscribe(result => {
       this.loginService.tokenSecret = result.data.token;
       this.loginService.rol = result.data.rol;
-      this.router.navigate(['admin/dashboard']);
+      this.router.navigate(['admin/tables']);
     }, error => {
       this.toastr.error(error.error.code +': ' +  error.error.message, 'Error', {
         timeOut: 7000,

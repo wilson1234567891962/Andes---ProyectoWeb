@@ -1,5 +1,5 @@
 <div
-  class="relative mt-10"
+  class="relative mt-10 shadow-lg"
   [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'"
 >
   <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -301,6 +301,16 @@
           >
             CANTIDAD DISPONIBLE
           </th>
+          <th
+            class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          >
+            Estado
+          </th>
         </tr>
         </thead>
         <tbody  >
@@ -332,10 +342,22 @@
           >
             {{item.detail.availableAmount}}
           </td>
+          <td>
+            <select id="state" class="text-xs border-gray-300 rounded-lg" (change)="onChangeState($event,item)">
+              <option [value]="item" *ngFor="let item of stateList" >{{item}}</option>
+            </select>
+          </td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
-
+  <div
+    class="relative mt-3 border-collapse break-words rounded shadow-lg"
+    [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'"
+  >
+    <button type="button" style="outline: transparent" class="bg-red-600 text-white rounded-lg p-3 m-3 ml-3" (click)="search()">EJECUTAR ORDENES</button>
+    <button type="button" style="background:#989898" class="text-white rounded-lg p-3 m-3 ml-3 " (click)="orderClear()">CANCELAR ORDENES</button>
+  </div>
 </div>
+

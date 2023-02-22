@@ -9,7 +9,6 @@ import {OrderService} from '../../../services/order.service';
   templateUrl: './logistic-example.component.html',
 })
 export class LogisticExampleComponent implements OnInit {
-
   state='';
   searchIsVisible = false;
   visibleDetail = false;
@@ -18,6 +17,7 @@ export class LogisticExampleComponent implements OnInit {
   detailProduct: any = [];
   productSearch = [];
   categoryList = [];
+  stateList=['PENDING','PROCESS','CANCELED','RUNNING'];
   storeList = [];
   product = [];
 
@@ -47,6 +47,7 @@ export class LogisticExampleComponent implements OnInit {
       }
     }
   }
+
 
   getOrders(): void {
     if (this.orderService.orders === undefined) {
@@ -114,7 +115,7 @@ export class LogisticExampleComponent implements OnInit {
   }
 
   checkDetailProduct(index) {
-     const store = this.productsTmp[index];
+     const store = {...this.productsTmp[index]};
      if(!this.detailProduct.some(elem => elem === store)){
        this.detailProduct.push(store);
      }
@@ -139,5 +140,20 @@ export class LogisticExampleComponent implements OnInit {
     this.searchIsVisible = false;
     this.productSearch = [];
     this.goItemPagination(this.selectionIndex, this.product);
+  }
+  orderClear(){
+    this.detailProduct = [];
+  }
+  getState(state:string) {
+    const clone = Object.assign([], this.stateList);
+    const index=clone.indexOf(state)
+    clone.splice(index,1);
+    return clone;
+  }
+  onChangeState(event:any,store:any){
+    console.log(this.detailProduct);
+    console.log(JSON.stringify(this.product))
+    store.state=event.target.value;
+    console.log(this.detailProduct);
   }
 }
