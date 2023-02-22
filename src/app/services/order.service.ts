@@ -16,10 +16,7 @@ export class OrderService {
   constructor(private communicatorService: CommunicatorService, private loginService: LoginService) { }
 
   getOrders(token: string): Observable<any>  {
-    const body: any = {
-      email: 'nrosenstengell9@ask.com',
-    };
-    return this.communicatorService.http_post( this.URL_SERVICES + 'ORDER/getOrder/', body, token);
+    return this.communicatorService.http_get( this.URL_SERVICES + 'ORDER/getOrder/', token);
   }
 
   get orders(): any {
