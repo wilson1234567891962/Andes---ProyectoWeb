@@ -39,6 +39,20 @@ let CommunicatorService = class CommunicatorService {
             throwError(error);
         }));
     }
+    http_put(url, tokenService, data) {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: (tokenService === null || tokenService === undefined) ? '' : tokenService
+        });
+        this.showLoad();
+        return this.http.put(url, data, { headers }).pipe(tap(() => {
+            this.hideLoad();
+        }, error => {
+            this.hideLoad();
+            throwError(error);
+        }));
+    }
     showLoad() {
         this.counterLoading++;
         if (this.isShowLoad) {

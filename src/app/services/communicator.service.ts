@@ -59,6 +59,27 @@ export class CommunicatorService {
     );
   }
 
+  http_put(url: string, tokenService?: any, data?:any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: (tokenService === null || tokenService === undefined) ? '' :  tokenService
+    });
+    this.showLoad();
+
+    return this.http.put(url, data, { headers }).pipe(
+      tap(
+        () => {
+          this.hideLoad();
+        },
+        error => {
+          this.hideLoad();
+          throwError(error);
+        },
+      ),
+    );
+  }
+
   private showLoad(): void {
     this.counterLoading++;
     if (this.isShowLoad) { return; }

@@ -19,6 +19,14 @@ export class OrderService {
     return this.communicatorService.http_get( this.URL_SERVICES + 'ORDER/getOrder/', token);
   }
 
+  getDriver(token: string): Observable<any>  {
+    return this.communicatorService.http_get( this.URL_SERVICES + 'ORDER/getDriver/', token);
+  }
+
+  updateOrders(token: string, orders: []): Observable<any>  {
+    return this.communicatorService.http_put( this.URL_SERVICES + 'ORDER/updateOrder/', token, orders);
+  }
+
   get orders(): any {
     return this._orders;
   }

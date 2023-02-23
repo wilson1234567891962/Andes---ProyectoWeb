@@ -9,15 +9,16 @@ import {OrderService} from '../../../services/order.service';
   templateUrl: './logistic-example.component.html',
 })
 export class LogisticExampleComponent implements OnInit {
-  state='';
+  state = '';
   searchIsVisible = false;
   visibleDetail = false;
   selectionIndex = 1;
   productsTmp = [];
   detailProduct: any = [];
+  drivers: any = [];
   productSearch = [];
   categoryList = [];
-  stateList=['PENDING','PROCESS','CANCELED','RUNNING'];
+  stateList = ['PENDING', 'PROCESSED', 'CANCELED', 'EXECUTING'];
   storeList = [];
   product = [];
 
@@ -38,6 +39,7 @@ export class LogisticExampleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrders();
+    this.getDriver();
   }
 
   getCategories(): void {
@@ -49,22 +51,26 @@ export class LogisticExampleComponent implements OnInit {
   }
 
 
-  getOrders(): void {
-    if (this.orderService.orders === undefined) {
-      this.orderService.getOrders(this.loginService.tokenSecret).subscribe(it => {
-        this.orderService.orders = it.data;
-        this.product = it.data;
-        this.setProduct();
-      }, error => {
-        this.toastr.error(error.error.code +': ' +  error.error.message, 'Error', {
-          timeOut: 7000,
-        });
-      })
+  getDriver(): void {
+    this.orderService.getDriver(this.loginService.tokenSecret).subscribe(it => {
+      this.drivers = it.data;
+    }, error => {
+      this.toastr.error(error.error.code + ': ' + error.error.message, 'Error', {
+        timeOut: 7000,
+      });
+    })
+  }
 
-    } else {
-      this.product = this.orderService.orders;
+  getOrders(): void {
+    this.orderService.getOrders(this.loginService.tokenSecret).subscribe(it => {
+      this.orderService.orders = it.data;
+      this.product = it.data;
       this.setProduct();
-    }
+    }, error => {
+      this.toastr.error(error.error.code + ': ' + error.error.message, 'Error', {
+        timeOut: 7000,
+      });
+    })
   }
 
   setProduct(): void {
@@ -102,10 +108,10 @@ export class LogisticExampleComponent implements OnInit {
     }
     this.searchIsVisible = true;
     const result = this.product.filter(it =>
-      it.idOrder.toString()===text ||
+      it.idOrder.toString() === text ||
       it.name.toString().toLowerCase().includes(text) ||
-      it.state.toString().toLowerCase().includes(text)||
-      it.address.toString().toLowerCase().includes(text)||
+      it.state.toString().toLowerCase().includes(text) ||
+      it.address.toString().toLowerCase().includes(text) ||
       it.phone.toString().toLowerCase().includes(text)
     );
     this.productSearch = result;
@@ -115,10 +121,11 @@ export class LogisticExampleComponent implements OnInit {
   }
 
   checkDetailProduct(index) {
-     const store = {...this.productsTmp[index]};
-     if(!this.detailProduct.some(elem => elem === store)){
-       this.detailProduct.push(store);
-     }
+    const store = {...this.productsTmp[index]};
+    const it = this.detailProduct.filter(data => data.idOrder === store.idOrder)
+    if (it.length === 0) {
+      this.detailProduct.push(store);
+    }
   }
 
   search() {
@@ -141,19 +148,66 @@ export class LogisticExampleComponent implements OnInit {
     this.productSearch = [];
     this.goItemPagination(this.selectionIndex, this.product);
   }
-  orderClear(){
+
+  orderClear() {
     this.detailProduct = [];
   }
-  getState(state:string) {
+
+  getState(state: string) {
     const clone = Object.assign([], this.stateList);
-    const index=clone.indexOf(state)
-    clone.splice(index,1);
+    const index = clone.indexOf(state)
+    clone.splice(index, 1);
     return clone;
   }
-  onChangeState(event:any,store:any){
-    console.log(this.detailProduct);
-    console.log(JSON.stringify(this.product))
-    store.state=event.target.value;
-    console.log(this.detailProduct);
+
+  onChangeState(event: any, store: any) {
+    if(event.target.value  === 'DEFAULT')  {
+      return;
+    }
+    store.state = event.target.value;
+  }
+
+  onchangeDriver(event: any, store: any) {
+    if(event.target.value  === 'DEFAULT')  {
+      return;
+    }
+    store.driver = event.target.value;
+  }
+
+  processOrder() {
+    if (this.detailProduct.length === 0) {
+      this.toastr.error('Debe selecionar alguna orden con su estados y conductor', 'Error', {
+        timeOut: 7000,
+      });
+      return;
+    }
+
+    let state = true;
+    for (const item of this.detailProduct) {
+      const  purchases = this.product.filter(it => it.idOrder === it.idOrder)[0]
+      if (item.driver === undefined || purchases.state === item.state) {
+        state = false;
+        break;
+      }
+    }
+
+    if(!state) {
+      this.toastr.error('Debe seleccionar el estado y conductor, adicional el estado no puede ser al actual', 'Error', {
+        timeOut: 7000,
+      });
+      return;
+    }
+
+    this.orderService.updateOrders(this.loginService.tokenSecret, this.detailProduct).subscribe(it => {
+      this.toastr.success(it.data.code +': ' +  it.data.message, 'Info', {
+        timeOut: 7000,
+      });
+      this.getOrders();
+      this.getDriver();
+    }, error => {
+      this.toastr.error(error.error.code + ': ' + error.error.message, 'Error', {
+        timeOut: 7000,
+      });
+    })
   }
 }

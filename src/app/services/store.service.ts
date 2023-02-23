@@ -15,7 +15,6 @@ export class StoreService {
   constructor(private communicatorService: CommunicatorService) { }
 
   getStore(token: string): Observable<any>  {
-    console.log(window.location.host);
     return this.communicatorService.http_get( this.URL_SERVICES + 'STORE/getStore/', token);
   }
 

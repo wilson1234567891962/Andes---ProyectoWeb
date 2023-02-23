@@ -113,14 +113,6 @@
         >
           ESTADO
         </th>
-        <th
-          class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-          [ngClass]="
-              color === 'light'
-                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                : 'bg-red-800 text-red-300 border-red-700'
-            "
-        ></th>
       </tr>
       </thead>
       <tbody>
@@ -258,28 +250,7 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
           >
-            ID STORE
-          </th>
-
-          <th
-            class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-            [ngClass]="
-              color === 'light'
-                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                : 'bg-red-800 text-red-300 border-red-700'
-            "
-          >
-            ID ORDER
-          </th>
-          <th
-            class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-            [ngClass]="
-              color === 'light'
-                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                : 'bg-red-800 text-red-300 border-red-700'
-            "
-          >
-            ID ORDER
+            PRODUCTO
           </th>
           <th
             class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -311,22 +282,22 @@
           >
             Estado
           </th>
+          <th
+            class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          >
+            CONDUCTOR-CEDULA
+          </th>
         </tr>
         </thead>
         <tbody  >
         <tr
           *ngFor="let item of detailProduct; index as i;"
           class="bg-blueGray-50 text-blueGray-500 border-blueGray-100">
-          <td
-            class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-          >
-            {{item.detail.idStore}}
-          </td>
-          <td
-            class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-          >
-            {{item.idOrder}}
-          </td>
           <td
             class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
           >
@@ -344,7 +315,14 @@
           </td>
           <td>
             <select id="state" class="text-xs border-gray-300 rounded-lg" (change)="onChangeState($event,item)">
+              <option value='DEFAULT' >SELECT OPTION</option>
               <option [value]="item" *ngFor="let item of stateList" >{{item}}</option>
+            </select>
+          </td>
+          <td>
+            <select id="driver" class="text-xs border-gray-300 rounded-lg" (change)="onchangeDriver($event,item)">
+              <option value='DEFAULT' *ngIf="item.driver === undefined">SELECT OPTION</option>
+              <option [value]="it.id" *ngFor="let it of drivers" >{{it.name}}-{{it.document}}</option>
             </select>
           </td>
         </tr>
@@ -356,7 +334,7 @@
     class="relative mt-3 border-collapse break-words rounded shadow-lg"
     [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'"
   >
-    <button type="button" style="outline: transparent" class="bg-red-600 text-white rounded-lg p-3 m-3 ml-3" (click)="search()">EJECUTAR ORDENES</button>
+    <button type="button" style="outline: transparent" class="bg-red-600 text-white rounded-lg p-3 m-3 ml-3" (click)="processOrder()">EJECUTAR ORDENES</button>
     <button type="button" style="background:#989898" class="text-white rounded-lg p-3 m-3 ml-3 " (click)="orderClear()">CANCELAR ORDENES</button>
   </div>
 </div>

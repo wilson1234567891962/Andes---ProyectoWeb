@@ -1,6 +1,7 @@
 import { __decorate } from "tslib";
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.prod';
+import { environmentProd } from '../../environments/environment.prod';
+import { environmentDev } from '../../environments/environment';
 let LoginService = class LoginService {
     constructor(communicatorService) {
         this.communicatorService = communicatorService;
@@ -8,26 +9,27 @@ let LoginService = class LoginService {
         this._password = '';
         this._tokenSecret = '';
         this._rol = '';
+        this.URL_SERVICES = window.location.host.includes('localhost') ? environmentDev.URL_BACKEND_LOCAL : environmentProd.URL_PRODUCTION;
     }
     login() {
         const body = {
             email: this.user,
             password: this.password
         };
-        return this.communicatorService.http_post(environment.URL_PRODUCTION + 'login/', body);
+        return this.communicatorService.http_post(this.URL_SERVICES + 'login/', body);
     }
     register(email, password) {
         const body = {
             email,
             password
         };
-        return this.communicatorService.http_post(environment.URL_PRODUCTION + 'register/', body);
+        return this.communicatorService.http_post(this.URL_SERVICES + 'register/', body);
     }
     forgetPassword(email) {
         const body = {
             email
         };
-        return this.communicatorService.http_post(environment.URL_PRODUCTION + 'forgetPassword/', body);
+        return this.communicatorService.http_post(this.URL_SERVICES + 'forgetPassword/', body);
     }
     get user() {
         return this._user;

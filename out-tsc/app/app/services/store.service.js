@@ -9,7 +9,6 @@ let StoreService = class StoreService {
         this._product = undefined;
     }
     getStore(token) {
-        console.log(window.location.host);
         return this.communicatorService.http_get(this.URL_SERVICES + 'STORE/getStore/', token);
     }
     get product() {

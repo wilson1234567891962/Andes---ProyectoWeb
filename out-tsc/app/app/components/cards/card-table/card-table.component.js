@@ -1,148 +1,24 @@
 import { __decorate } from "tslib";
 import { Component, Input } from '@angular/core';
 let CardTableComponent = class CardTableComponent {
-    constructor() {
+    constructor(utilitiesService, storeService, loginService, toastr) {
+        this.utilitiesService = utilitiesService;
+        this.storeService = storeService;
+        this.loginService = loginService;
+        this.toastr = toastr;
+        this.endDay = '';
+        this.startDay = '';
+        this.category = '';
+        this.store = '';
+        this.searchIsVisible = false;
         this.visibleDetail = false;
         this.selectionIndex = 1;
         this.productsTmp = [];
-        this.product = [
-            {
-                product: 'Coca Cola A1',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A2',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A3',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A4',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A5',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A6',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A7',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A8',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A9',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A10',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A11',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A12',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A13',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A14',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A15',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A16',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            },
-            {
-                product: 'Coca Cola A17',
-                imageProduct: 'assets/img/bootstrap.jpg',
-                store: 'Andino',
-                supplier: 'Coca Cola',
-                importer: 'N/A',
-                amount: 10
-            }
-        ];
+        this.detailProduct = {};
+        this.productSearch = [];
+        this.categoryList = [];
+        this.storeList = [];
+        this.product = [];
         this._color = 'light';
     }
     get color() {
@@ -152,76 +28,109 @@ let CardTableComponent = class CardTableComponent {
         this._color = color !== 'light' && color !== 'dark' ? 'light' : color;
     }
     ngOnInit() {
-        this.goItemPagination(1);
+        this.getStore();
     }
-    goItemPagination(count) {
-        if (this.selectionIndex > 1) {
-            break;
+    getCategories() {
+        for (const item of this.product) {
+            if (!this.categoryList.includes(item.detail.category)) {
+                this.categoryList.push(item.detail.category);
+            }
+        }
+    }
+    getStore() {
+        if (this.storeService.product === undefined) {
+            this.storeService.getStore(this.loginService.tokenSecret).subscribe(it => {
+                this.storeService.product = it.data;
+                this.product = it.data;
+                this.setProduct();
+            }, error => {
+                this.toastr.error(error.error.code + ': ' + error.error.message, 'Error', {
+                    timeOut: 7000,
+                });
+            });
+        }
+        else {
+            this.product = this.storeService.product;
+            this.setProduct();
+        }
+    }
+    setProduct() {
+        for (const item of this.product) {
+            if (!this.storeList.includes(item.store)) {
+                this.storeList.push(item.store);
+            }
+        }
+        this.goItemPagination(1, this.product);
+        this.getCategories();
+    }
+    goItemPagination(count, data) {
+        this.visibleDetail = false;
+        data = !this.searchIsVisible ? this.product : this.productSearch;
+        const paginate = this.utilitiesService.paginate(data.length, count, 5, 5);
+        if (count < 1 || count > paginate.totalPages) {
+            return;
         }
         this.selectionIndex = count;
         this.productsTmp = new Array();
-        const paginate = this.paginate(this.product.length, this.selectionIndex, 5, 5);
         for (let i = paginate.startIndex; i <= paginate.endIndex; i++) {
-            this.productsTmp.push(this.product[i]);
+            this.productsTmp.push(data[i]);
         }
     }
-    checkDetailProduct() {
+    onChangeEvent(event) {
+        const text = event.target.value.toString().toLowerCase();
+        this.store = '';
+        this.category = '';
+        if (text.length < 0) {
+            this.searchIsVisible = false;
+            this.productSearch = [];
+            this.goItemPagination(this.selectionIndex, this.product);
+            return;
+        }
+        this.searchIsVisible = true;
+        const result = this.product.filter(it => it.importer.toString().toLowerCase().includes(text) ||
+            it.store.toString().toLowerCase().includes(text) ||
+            it.product.toString().toLowerCase().includes(text));
+        this.productSearch = result;
+        this.productsTmp = new Array();
+        this.selectionIndex = 1;
+        this.goItemPagination(this.selectionIndex, result);
+    }
+    checkDetailProduct(index) {
         this.visibleDetail = true;
+        this.detailProduct = !this.searchIsVisible ? this.product[index].detail : this.productSearch[index].detail;
     }
-    paginate(totalItems, currentPage = 1, pageSize = 10, maxPages = 10) {
-        // calculate total pages
-        const totalPages = Math.ceil(totalItems / pageSize);
-        // ensure current page isn't out of range
-        if (currentPage < 1) {
-            currentPage = 1;
+    search() {
+        if (this.store === '' && this.category === '' && this.startDay === '' && this.endDay === '') {
+            return;
         }
-        else if (currentPage > totalPages) {
-            currentPage = totalPages;
-        }
-        let startPage;
-        let endPage;
-        if (totalPages <= maxPages) {
-            // total pages less than max so show all pages
-            startPage = 1;
-            endPage = totalPages;
-        }
-        else {
-            // total pages more than max so calculate start and end pages
-            const maxPagesBeforeCurrentPage = Math.floor(maxPages / 2);
-            const maxPagesAfterCurrentPage = Math.ceil(maxPages / 2) - 1;
-            if (currentPage <= maxPagesBeforeCurrentPage) {
-                // current page near the start
-                startPage = 1;
-                endPage = maxPages;
-            }
-            else if (currentPage + maxPagesAfterCurrentPage >= totalPages) {
-                // current page near the end
-                startPage = totalPages - maxPages + 1;
-                endPage = totalPages;
-            }
-            else {
-                // current page somewhere in the middle
-                startPage = currentPage - maxPagesBeforeCurrentPage;
-                endPage = currentPage + maxPagesAfterCurrentPage;
-            }
-        }
-        // calculate start and end item indexes
-        const startIndex = (currentPage - 1) * pageSize;
-        const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
-        // create an array of pages to ng-repeat in the pager control
-        const pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => startPage + i);
-        // return object with all pager properties required by the view
-        return {
-            totalItems,
-            currentPage,
-            pageSize,
-            totalPages,
-            startPage,
-            endPage,
-            startIndex,
-            endIndex,
-            pages
-        };
+        const result = this.product.filter(it => it.store.toString().toLowerCase() === this.store.toLowerCase() ||
+            it.detail.category.toString().toLowerCase() === this.category.toLowerCase().trim()
+            || (this.startDay.length > 0 && this.endDay.length === 0 &&
+                this.utilitiesService.conversionDate(new Date(this.startDay), it.detail.expiration))
+            || (this.endDay.length > 0 && this.startDay.length === 0 &&
+                this.utilitiesService.conversionDate(new Date(this.endDay), it.detail.expiration))
+            || (this.endDay.length > 0 && this.startDay.length > 0 &&
+                this.utilitiesService.betweenDate(new Date(this.startDay), new Date(this.endDay), it.detail.expiration)));
+        this.searchIsVisible = true;
+        this.productSearch = result;
+        this.productsTmp = new Array();
+        this.selectionIndex = 1;
+        this.goItemPagination(this.selectionIndex, result);
+    }
+    clean() {
+        this.store = '';
+        this.category = '';
+        this.startDay = '';
+        this.endDay = '';
+        this.searchIsVisible = false;
+        this.productSearch = [];
+        this.goItemPagination(this.selectionIndex, this.product);
+    }
+    convertDate(value) {
+        return new Date(this.utilitiesService.changeFormatDate(value));
+    }
+    checkExpiration(value) {
+        return !this.utilitiesService.validatorDate(this.convertDate(value), 3);
     }
 };
 __decorate([
