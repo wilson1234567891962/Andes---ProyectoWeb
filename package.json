@@ -5,7 +5,7 @@
   "repository": "https://github.com/creativetimofficial/notus-angular",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
+    "ng": "ng ",
     "lint": "ng lint",
     "build": "ng build --prod",
     "start": "ng serve --port 4200",
