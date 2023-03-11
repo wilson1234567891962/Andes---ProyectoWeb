@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "build": "ng build --prod",
     "start": "ng serve --port 4200",
+    "start-qa": "ng serve --port 4200",
     "test": "jest",
     "e2e": "ng e2e",
     "build:tailwind": "tailwind build src/assets/styles/index.css -o src/assets/styles/tailwind.css",
