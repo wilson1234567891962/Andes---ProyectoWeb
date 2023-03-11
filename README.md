@@ -253,7 +253,7 @@ notus-angular
 │   │       └── tailwind.css
 │   ├── environments
 │   │   ├── environment.prod.ts
-│   │   └── environment.ts
+│   │   └── environment.dev.ts
 │   ├── favicon.ico
 │   ├── index.html
 │   ├── main.ts
