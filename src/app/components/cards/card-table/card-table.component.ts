@@ -115,7 +115,7 @@ export class CardTableComponent implements OnInit {
 
   checkDetailProduct(index) {
     this.visibleDetail = true;
-    this.detailProduct = !this.searchIsVisible ? this.product[index].detail : this.productSearch[index].detail;
+    this.detailProduct = this.productsTmp[index].detail;
   }
 
   search() {
