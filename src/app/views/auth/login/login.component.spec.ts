@@ -149,7 +149,7 @@ describe('LoginComponent error service', () => {
     spyOn(window.localStorage, 'clear').and.callFake(() => (localStore = {}));
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    observable4.error({code:'LG-0000',message:'Por favor revise el usuario o clave digitado.'});
+    observable4.error({error: {code:'LG-0000',message:'Por favor revise el usuario o clave digitado.'}});
     fixture.detectChanges();
   });
 
