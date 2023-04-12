@@ -24,12 +24,17 @@ describe('LoginService', () => {
     });
   }));
 
-  it('call login method', fakeAsync(() => {
+  it('call register method', fakeAsync(() => {
     fooService.register('', '').subscribe(result => {
       expect(result).toEqual({});
     });
   }));
 
+  it('call forgetPassword method', fakeAsync(() => {
+    fooService.forgetPassword('').subscribe(result => {
+      expect(result).toEqual({});
+    });
+  }));
 
   it('check get and set methods', fakeAsync(() => {
     fooService.user = '';
