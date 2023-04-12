@@ -14,7 +14,7 @@ export class LoginService {
   private _password = '';
   private _tokenSecret = '';
   private _rol = '';
-  private URL_SERVICES  = window.location.host.includes('localhost') ? environmentDev.URL_BACKEND_LOCAL : environmentProd.URL_PRODUCTION;
+  URL_SERVICES  = window.location.host.includes('localhost') ? environmentDev.URL_BACKEND_LOCAL : environmentProd.URL_PRODUCTION;
   constructor(private communicatorService: CommunicatorService) { }
 
   login(): Observable<any>  {
