@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="containerSelector mb-2">
+  <div class="containerSelector mb-2" *ngIf="false">
     <label for="small" class="block mb-2 mt-2 font-medium text-gray-900 dark:text-white ml-3 text-lg font-semibold">Categorias</label>
     <select id="small" class="selectWinery minimal"  [(ngModel)]="category">
       <option [value]="item" *ngFor="let item of categoryList" >{{item}}</option>
