@@ -5,7 +5,7 @@ import {CommunicatorService} from './communicator.service';
 import {environmentProd} from '../../environments/environment.prod';
 import {UtilitiesService} from './utilities.service';
 
-describe('LoginService', () => {
+describe('UtilitiesService', () => {
   let fooService: UtilitiesService;
   beforeEach(() => {
     TestBed.configureTestingModule({
