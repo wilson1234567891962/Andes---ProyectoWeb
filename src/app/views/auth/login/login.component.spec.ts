@@ -1,23 +1,24 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {LoginComponent} from './login.component';
 import {LoginService} from '../../../services/login.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {UtilitiesService} from '../../../services/utilities.service';
 import {Router} from '@angular/router';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule, HttpHandler} from '@angular/common/http';
 import {of} from 'rxjs';
 import {CommunicatorService} from '../../../services/communicator.service';
 import {LoadingService} from '../../../services/loading.service';
-import {ToastrService} from 'ngx-toastr';
+import {ToastrModule, ToastrService} from 'ngx-toastr';
 import {FormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  beforeEach((() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule, FormsModule],
+      imports: [RouterTestingModule, HttpClientModule, FormsModule, ToastrModule.forRoot()],
       declarations: [
         LoginComponent
       ],
@@ -45,8 +46,7 @@ describe('LoginComponent', () => {
           },
         }
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
