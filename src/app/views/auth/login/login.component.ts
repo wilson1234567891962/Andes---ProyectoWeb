@@ -3,9 +3,9 @@ import {LoginService} from '../../../services/login.service';
 import {Router} from '@angular/router';
 import {UtilitiesService} from '../../../services/utilities.service';
 import {ToastrService} from 'ngx-toastr';
-import {CommunicatorService} from "../../../services/communicator.service";
-import {LoadingService} from "../../../services/loading.service";
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import {CommunicatorService} from '../../../services/communicator.service';
+import {LoadingService} from '../../../services/loading.service';
+import {HttpClient, HttpHandler} from '@angular/common/http';
 
 
 @Component({
@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
   }
   checkInfo(){
     return !this.utilitiesService.validatorsFields(this._email) ||
-      !this.utilitiesService.validatorsFields(this._password)|| !this.utilitiesService.validatorsEmail(this._email);
+      !this.utilitiesService.validatorsFields(this._password)||
+      !this.utilitiesService.validatorsEmail(this._email);
   }
   saveUser() {
     if(!this._isChecked)  {
