@@ -7,9 +7,9 @@ import { LoadingService } from './loading.service';
 @Injectable()
 export class CommunicatorService {
 
-  private isShowLoad = false;
+  isShowLoad = false;
   private counterLoading = 0;
-  private requests: boolean[] = [];
+  requests: boolean[] = [];
 
   constructor(
     private http: HttpClient,
@@ -80,7 +80,7 @@ export class CommunicatorService {
     );
   }
 
-  private showLoad(): void {
+  showLoad(): void {
     this.counterLoading++;
     if (this.isShowLoad) { return; }
     this.isShowLoad = true;
@@ -88,7 +88,7 @@ export class CommunicatorService {
     this.requests.push(this.isShowLoad);
   }
 
-  private hideLoad(): void {
+  hideLoad(): void {
     this.counterLoading--;
     this.requests.splice(0, 1);
     if (this.requests.length === 0 && this.counterLoading === 0) {
@@ -96,24 +96,4 @@ export class CommunicatorService {
       this.loadingService.setStateLoading(false);
     }
   }
-}
-
-export type WebRequestMethod =
-  'GET' |
-  'POST' |
-  'PUT' |
-  'DELETE' |
-  'OPTIONS' |
-  'HEAD' |
-  'PATCH';
-
-export interface IWebRequestOptions {
-  method?: string;
-  search?: string;
-  params?: string | URLSearchParams;
-  headers?: Headers | null;
-  body?: any | {};
-  withCredentials?: boolean | null;
-  responseType?: XMLHttpRequestResponseType | null;
-  op?: string;
 }
