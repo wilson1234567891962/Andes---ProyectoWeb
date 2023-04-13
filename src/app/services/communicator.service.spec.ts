@@ -88,4 +88,37 @@ describe('CommunicatorService', () => {
       total_count: 2
     });
   }));
+
+  it('call http_post method with error', fakeAsync(() => {
+    let response: any;
+    let errResponse: any;
+    const mockErrorResponse = { status: 400, statusText: 'Bad Request' };
+    const data = 'Invalid request parameters';
+    fooService.http_post('url/being/monitored', {}).subscribe(res => response = res, err => errResponse = err);
+    httpMock.expectOne('url/being/monitored').flush(data, mockErrorResponse);
+    // @ts-ignore
+    expect(errResponse.error).toBe(data);
+  }));
+
+  it('call http_put method with error', fakeAsync(() => {
+    let response: any;
+    let errResponse: any;
+    const mockErrorResponse = { status: 400, statusText: 'Bad Request' };
+    const data = 'Invalid request parameters';
+    fooService.http_put('url/being/monitored', {}).subscribe(res => response = res, err => errResponse = err);
+    httpMock.expectOne('url/being/monitored').flush(data, mockErrorResponse);
+    // @ts-ignore
+    expect(errResponse.error).toBe(data);
+  }));
+
+  it('call http_put method with error', fakeAsync(() => {
+    let response: any;
+    let errResponse: any;
+    const mockErrorResponse = { status: 400, statusText: 'Bad Request' };
+    const data = 'Invalid request parameters';
+    fooService.http_get('url/being/monitored', {}).subscribe(res => response = res, err => errResponse = err);
+    httpMock.expectOne('url/being/monitored').flush(data, mockErrorResponse);
+    // @ts-ignore
+    expect(errResponse.error).toBe(data);
+  }));
 });
