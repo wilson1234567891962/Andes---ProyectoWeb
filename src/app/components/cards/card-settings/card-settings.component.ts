@@ -11,7 +11,7 @@ export class CardSettingsComponent implements OnInit {
   languageList = ['ESPAÑOL', 'INGLES']
   language = '';
   email = '';
-  constructor(private loginService: LoginService, private toastr: ToastrService,private utilitiesService: UtilitiesService) {
+  constructor(private loginService: LoginService, private toastr: ToastrService,public utilitiesService: UtilitiesService) {
   }
 
   ngOnInit(): void {
