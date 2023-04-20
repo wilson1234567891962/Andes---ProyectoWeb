@@ -17,10 +17,10 @@
 
   <div class="containerSelector mb-2">
     <label for="small" class="block mb-2 mt-2 font-medium text-gray-900 dark:text-white ml-3 text-lg font-semibold">Estado</label>
-    <select id="small" class="selectWinery minimal"  [(ngModel)]="state">
-      <option [value]="item" *ngFor="let item of categoryList" >{{item}}</option>
+    <select id="small" class="selectWinery minimal" [(ngModel)]="state">
+      <option [value]="item" *ngFor="let item of categoryList">{{item}}</option>
     </select>
-     <div>
+    <div>
       <button type="button" class="buttonSearch colorRed m-3 ml-3 " (click)="search()">Buscar</button>
       <button type="button" class="buttonSearch colorGrey m-3" (click)="clean()">Limpiar</button>
     </div>
@@ -294,7 +294,7 @@
           </th>
         </tr>
         </thead>
-        <tbody  >
+        <tbody>
         <tr
           *ngFor="let item of detailProduct; index as i;"
           class="bg-blueGray-50 text-blueGray-500 border-blueGray-100">
@@ -315,14 +315,14 @@
           </td>
           <td>
             <select id="state" class="text-xs border-gray-300 rounded-lg" (change)="onChangeState($event,item)">
-              <option value='DEFAULT' >SELECT OPTION</option>
-              <option [value]="item" *ngFor="let item of stateList" >{{item}}</option>
+              <option value='DEFAULT'>SELECT OPTION</option>
+              <option [value]="item" *ngFor="let item of stateList">{{item}}</option>
             </select>
           </td>
           <td>
             <select id="driver" class="text-xs border-gray-300 rounded-lg" (change)="onchangeDriver($event,item)">
               <option value='DEFAULT' *ngIf="item.driver === undefined">SELECT OPTION</option>
-              <option [value]="it.id" *ngFor="let it of drivers" >{{it.name}}-{{it.document}}</option>
+              <option [value]="it.id" *ngFor="let it of drivers">{{it.name}}-{{it.document}}</option>
             </select>
           </td>
         </tr>
@@ -334,8 +334,12 @@
     class="relative mt-3 border-collapse break-words rounded shadow-lg"
     [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'"
   >
-    <button type="button" style="outline: transparent" class="bg-red-600 text-white rounded-lg p-3 m-3 ml-3" (click)="processOrder()">EJECUTAR ORDENES</button>
-    <button type="button" style="background:#989898" class="text-white rounded-lg p-3 m-3 ml-3 " (click)="orderClear()">CANCELAR ORDENES</button>
+    <button type="button" style="outline: transparent" class="bg-red-600 text-white rounded-lg p-3 m-3 ml-3"
+            (click)="processOrder()">EJECUTAR ORDENES
+    </button>
+    <button type="button" style="background:#989898" class="text-white rounded-lg p-3 m-3 ml-3 " (click)="orderClear()">
+      CANCELAR ORDENES
+    </button>
   </div>
 </div>
 

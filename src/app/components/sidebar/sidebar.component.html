@@ -75,34 +75,32 @@
       <h6
         class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline" *ngIf="false"
       >
-        Panel de administracion
+        {{this.utilitiesService.getLanguage().sideBar.panel}}
       </h6>
       <!-- Navigation -->
 
       <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-        <li class="items-center" *ngIf="false">
+        <li class="items-center">
           <a
-            [routerLink]="['/admin/dashboard']"
+            [routerLink]="['/admin/settings']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
-            #adminDashboard="routerLinkActive"
+            #adminSettings="routerLinkActive"
             [ngClass]="
-              adminDashboard.isActive
+              adminSettings.isActive
                 ? 'text-red-600 hover:text-red-700'
                 : 'text-blueGray-700 hover:text-blueGray-500'
             "
           >
             <i
-              class="fas fa-tv mr-2 text-sm"
+              class="fas fa-tools mr-2 text-sm"
               [ngClass]="
-                adminDashboard.isActive ? 'opacity-75' : 'text-blueGray-300'
+                adminSettings.isActive ? 'opacity-75' : 'text-blueGray-300'
               "
             ></i>
-            Dashboard
+            {{this.utilitiesService.getLanguage().sideBar.setting}}
           </a>
         </li>
-
-
 
         <li class="items-center">
           <a
@@ -122,30 +120,34 @@
                 adminTables.isActive ? 'opacity-75' : 'text-blueGray-300'
               "
             ></i>
-            Almacen
+            {{this.utilitiesService.getLanguage().sideBar.store}}
           </a>
         </li>
-        <li class="items-center" *ngIf="false">
+
+
+        <li class="items-center">
           <a
             [routerLink]="['/admin/logistic']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
-            #adminMaps="routerLinkActive"
+            #adminLogistic="routerLinkActive"
             [ngClass]="
-              adminMaps.isActive
+              adminSettings.isActive
                 ? 'text-red-600 hover:text-red-700'
                 : 'text-blueGray-700 hover:text-blueGray-500'
             "
           >
             <i
-              class="fas fa-table mr-2 text-sm"
+              class="fas fa-tools mr-2 text-sm"
               [ngClass]="
-                adminMaps.isActive ? 'opacity-75' : 'text-blueGray-300'
+                adminLogistic.isActive ? 'opacity-75' : 'text-blueGray-300'
               "
             ></i>
-            Logistica
+            {{this.utilitiesService.getLanguage().sideBar.logistic}}
           </a>
         </li>
+
+
       </ul>
 
       <!-- Divider -->
@@ -165,7 +167,7 @@
             class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
           >
             <i class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"></i>
-            Salir
+            {{this.utilitiesService.getLanguage().sideBar.goOut}}
           </a>
         </li>
 
