@@ -14,7 +14,7 @@ import {HttpClient, HttpHandler} from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router,
-              private utilitiesService:UtilitiesService, private toastr: ToastrService) {}
+              public utilitiesService:UtilitiesService, private toastr: ToastrService) {}
   private _email = '';
   private _password = '';
   private _isChecked = false;
