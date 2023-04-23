@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   private _password = '';
   private _hideOptionsRegister = false;
 
-  constructor(private loginService: LoginService, private route: ActivatedRoute, private utilitiesService: UtilitiesService,
+  constructor(private loginService: LoginService, private route: ActivatedRoute, public utilitiesService: UtilitiesService,
               private router: Router,  private toastr: ToastrService) {
   }
 

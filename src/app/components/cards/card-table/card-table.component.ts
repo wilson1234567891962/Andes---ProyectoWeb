@@ -34,7 +34,7 @@ export class CardTableComponent implements OnInit {
 
   private _color = 'light';
 
-  constructor(private utilitiesService: UtilitiesService, private storeService: StoreService, private loginService: LoginService,
+  constructor(public utilitiesService: UtilitiesService, private storeService: StoreService, private loginService: LoginService,
               private toastr: ToastrService) {
   }
 
