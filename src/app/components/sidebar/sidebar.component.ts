@@ -7,7 +7,7 @@ import {UtilitiesService} from '../../services/utilities.service';
 })
 export class SidebarComponent implements OnInit {
   collapseShow = 'hidden';
-  constructor(private utilitiesService:UtilitiesService) {}
+  constructor(public utilitiesService:UtilitiesService) {}
 
   ngOnInit() {}
   toggleCollapseShow(classes) {
