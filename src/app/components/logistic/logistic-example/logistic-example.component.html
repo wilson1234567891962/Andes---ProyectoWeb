@@ -38,7 +38,7 @@
           class="font-semibold text-lg"
           [ngClass]="color === 'light' ? 'text-blueGray-700' : 'text-white'"
         >
-          PRODUCTO
+          LISTADO DE ORDENES
         </h3>
       </div>
       <div class="relative ">
@@ -232,7 +232,7 @@
             class="font-semibold text-lg"
             [ngClass]="color === 'light' ? 'text-blueGray-700' : 'text-white'"
           >
-            SELECCION DE ORDENES
+            ORDENES PARA PROCESAR
           </h3>
         </div>
       </div>
@@ -279,6 +279,7 @@
                 ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                 : 'bg-red-800 text-red-300 border-red-700'
             "
+            *ngIf="false"
           >
             Estado
           </th>
@@ -313,7 +314,7 @@
           >
             {{item.detail.availableAmount}}
           </td>
-          <td>
+          <td *ngIf="false">
             <select id="state" class="text-xs border-gray-300 rounded-lg" (change)="onChangeState($event,item)">
               <option value='DEFAULT'>SELECT OPTION</option>
               <option [value]="item" *ngFor="let item of stateList">{{item}}</option>
@@ -333,6 +334,7 @@
   <div
     class="relative mt-3 border-collapse break-words rounded shadow-lg"
     [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'"
+    *ngIf="false"
   >
     <button type="button" style="outline: transparent" class="bg-red-600 text-white rounded-lg p-3 m-3 ml-3"
             (click)="processOrder()">EJECUTAR ORDENES
