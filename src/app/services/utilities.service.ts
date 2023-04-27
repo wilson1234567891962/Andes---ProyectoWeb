@@ -36,6 +36,23 @@ export class UtilitiesService {
         expired: 'CADUCIDAD',
         located: 'LOCALIZATION'
       },
+      logistic: {
+        title: 'LOGISTICA',
+        search: 'BUSCAR',
+        clean: 'LIMPIAR',
+        listOrders: 'LISTADO DE ORDENES',
+        name: 'NOMBRE',
+        address: 'DIRECCION',
+        phone: 'TELEFONO',
+        status: 'ESTADO',
+        ordersToProcess: 'ORDENES POR PROCESAR',
+        product: 'PRODUCTO',
+        amountRequested: 'CANTIDAD SOLICITADA',
+        amountAvailabe: 'CANTIDAD DISPONIBLE',
+        drive: 'CONDUCTOR',
+        runOrders: 'PROCESAR ORDENES',
+        cancelOrders: 'CANCELAR ORDENES'
+      }
     },
     {
       login: {
@@ -68,6 +85,23 @@ export class UtilitiesService {
         expired: 'CADUCIDAD',
         located: 'LOCALIZATION'
       },
+      logistic: {
+        title: 'LOGISTIC',
+        search: 'SEARCH',
+        clean: 'CLEAN',
+        listOrders: 'LIST ORDERS',
+        name: 'NAME',
+        address: 'ADDRESS',
+        phone: 'PHONE',
+        status: 'STATUS',
+        ordersToProcess: 'ORDENES TO PROCESS',
+        product: 'PRODUCT',
+        amountRequested: 'AMOUNT REQUESTED',
+        amountAvailabe: 'AMOUNT AVAILABLE',
+        drive: 'DRIVER',
+        runOrders: 'PROCESS ORDERS',
+        cancelOrders: 'CANCEL ORDERS'
+      }
     }
   ];
   constructor() {
