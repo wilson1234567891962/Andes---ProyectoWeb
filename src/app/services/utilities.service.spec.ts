@@ -1,8 +1,6 @@
 import {fakeAsync, TestBed } from '@angular/core/testing';
-import {LoginService} from './login.service';
 import {of} from 'rxjs';
 import {CommunicatorService} from './communicator.service';
-import {environmentProd} from '../../environments/environment.prod';
 import {UtilitiesService} from './utilities.service';
 
 describe('UtilitiesService', () => {

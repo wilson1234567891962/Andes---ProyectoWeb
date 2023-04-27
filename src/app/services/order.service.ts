@@ -1,9 +1,9 @@
-import {Injectable, isDevMode} from '@angular/core';
+import {Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {CommunicatorService} from './communicator.service';
 import { environmentDev} from '../../environments/environment.dev';
 import {environmentProd} from '../../environments/environment.prod';
-import {LoginService} from "./login.service";
+// import {LoginService} from "./login.service";
 
 @Injectable({
   providedIn: 'root'

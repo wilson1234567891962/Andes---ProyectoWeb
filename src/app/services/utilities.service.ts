@@ -49,7 +49,7 @@ export class UtilitiesService {
         product: 'PRODUCTO',
         amountRequested: 'CANTIDAD SOLICITADA',
         amountAvailabe: 'CANTIDAD DISPONIBLE',
-        drive: 'CONDUCTOR',
+        driver: 'CONDUCTOR',
         runOrders: 'PROCESAR ORDENES',
         cancelOrders: 'CANCELAR ORDENES'
       }
@@ -98,7 +98,7 @@ export class UtilitiesService {
         product: 'PRODUCT',
         amountRequested: 'AMOUNT REQUESTED',
         amountAvailabe: 'AMOUNT AVAILABLE',
-        drive: 'DRIVER',
+        driver: 'DRIVER',
         runOrders: 'PROCESS ORDERS',
         cancelOrders: 'CANCEL ORDERS'
       }
