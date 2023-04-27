@@ -49,7 +49,7 @@ export class UtilitiesService {
         setting: 'SETTING',
         store: 'STORE',
         logistic: 'LOGISTIC',
-        goOut: 'GO UT'
+        goOut: 'LOGOUT'
       },
       setting: {
         title: 'ADMINISTRATION',

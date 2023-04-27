@@ -25,7 +25,6 @@ import { ProfileComponent } from './views/profile/profile.component';
 
 // components for views and layouts
 
-import { AdminNavbarComponent } from './components/navbars/admin-navbar/admin-navbar.component';
 import { AuthNavbarComponent } from './components/navbars/auth-navbar/auth-navbar.component';
 import { CardBarChartComponent } from './components/cards/card-bar-chart/card-bar-chart.component';
 import { CardLineChartComponent } from './components/cards/card-line-chart/card-line-chart.component';
@@ -38,15 +37,12 @@ import { CardTableComponent } from './components/cards/card-table/card-table.com
 import { FooterAdminComponent } from './components/footers/footer-admin/footer-admin.component';
 import { FooterComponent } from './components/footers/footer/footer.component';
 import { FooterSmallComponent } from './components/footers/footer-small/footer-small.component';
-import { HeaderStatsComponent } from './components/headers/header-stats/header-stats.component';
 import { IndexNavbarComponent } from './components/navbars/index-navbar/index-navbar.component';
 import { LogisticExampleComponent } from './components/logistic/logistic-example/logistic-example.component';
 import { IndexDropdownComponent } from './components/dropdowns/index-dropdown/index-dropdown.component';
 import { TableDropdownComponent } from './components/dropdowns/table-dropdown/table-dropdown.component';
 import { PagesDropdownComponent } from './components/dropdowns/pages-dropdown/pages-dropdown.component';
-import { NotificationDropdownComponent } from './components/dropdowns/notification-dropdown/notification-dropdown.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { UserDropdownComponent } from './components/dropdowns/user-dropdown/user-dropdown.component';
 import {FormsModule} from '@angular/forms';
 import { LoadingComponent } from './components/loading/loading.component';
 import {CommunicatorService} from './services/communicator.service';
@@ -63,8 +59,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     IndexDropdownComponent,
     PagesDropdownComponent,
     TableDropdownComponent,
-    NotificationDropdownComponent,
-    UserDropdownComponent,
     SidebarComponent,
     FooterComponent,
     FooterSmallComponent,
@@ -75,10 +69,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     CardSocialTrafficComponent,
     CardStatsComponent,
     CardTableComponent,
-    HeaderStatsComponent,
     LogisticExampleComponent,
     AuthNavbarComponent,
-    AdminNavbarComponent,
     IndexNavbarComponent,
     AdminComponent,
     AuthComponent,
