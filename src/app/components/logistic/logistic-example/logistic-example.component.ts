@@ -185,7 +185,7 @@ export class LogisticExampleComponent implements OnInit {
     let state = true;
     for (const item of this.detailProduct) {
       const  purchases = this.product.filter(it => it.idOrder === it.idOrder)[0]
-      if (item.driver === undefined || purchases.state === item.state) {
+      if (item.driver === undefined) {
         state = false;
         break;
       }
