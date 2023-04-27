@@ -1,12 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../../../services/login.service';
 import {Router} from '@angular/router';
 import {UtilitiesService} from '../../../services/utilities.service';
 import {ToastrService} from 'ngx-toastr';
-import {CommunicatorService} from '../../../services/communicator.service';
-import {LoadingService} from '../../../services/loading.service';
-import {HttpClient, HttpHandler} from '@angular/common/http';
-
 
 @Component({
   selector: 'app-login',
