@@ -6,6 +6,7 @@ import {UtilitiesService} from '../../services/utilities.service';
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent implements OnInit {
+  
   collapseShow = 'hidden';
   constructor(public utilitiesService:UtilitiesService) {}
 
