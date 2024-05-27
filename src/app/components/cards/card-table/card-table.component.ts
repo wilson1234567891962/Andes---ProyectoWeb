@@ -53,7 +53,9 @@ export class CardTableComponent implements OnInit {
   getStore(): void {
     if (this.storeService.product === undefined) {
       this.loginService.getConfigJson().subscribe(it => {
-         console.log('Fue mensaje' + JSON.stringify(it));
+        this.storeService.product = it;
+        this.product = it;
+        this.setProduct();;
       }, error => {
         this.toastr.error(error.error.code +': ' +  error.error.message, 'Error', {
           timeOut: 7000,
