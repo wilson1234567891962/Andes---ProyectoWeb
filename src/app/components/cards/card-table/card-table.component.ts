@@ -55,7 +55,7 @@ export class CardTableComponent implements OnInit {
       this.loginService.getConfigJson().subscribe(it => {
         this.storeService.product = it;
         this.product = it;
-        this.setProduct();;
+        this.setProduct();
       }, error => {
         this.toastr.error(error.error.code +': ' +  error.error.message, 'Error', {
           timeOut: 7000,
@@ -104,9 +104,7 @@ export class CardTableComponent implements OnInit {
     }
     this.searchIsVisible = true;
     const result = this.product.filter(it =>
-      it.importer.toString().toLowerCase().includes(text) ||
-      it.store.toString().toLowerCase().includes(text) ||
-      it.product.toString().toLowerCase().includes(text));
+      it.NIT.toString().toLowerCase().includes(text));
     this.productSearch = result;
     this.productsTmp = new Array();
     this.selectionIndex = 1;
