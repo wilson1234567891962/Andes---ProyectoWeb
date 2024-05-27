@@ -42,7 +42,7 @@ export class LoginService {
 
 
   getConfigJson(): Observable<any>  {
-    return this.communicatorService.http_get('https://wilson1234567891962.github.io/Andes---ProyectoWeb/assets/config/data.json');
+    return this.communicatorService.http_get('https://wilson1234567891962.github.io/Andes---ProyectoWeb/assets/conf/data.json');
   }
 
   get user(): string {
