@@ -19,7 +19,7 @@
     >
       <span class="hidden sm:block"> CCP ERP </span>
     </a>
-   
+
     <!-- Collapse -->
     <div
       class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded"
@@ -61,7 +61,7 @@
       <!-- Navigation -->
 
       <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-        
+
         <li class="items-center">
           <a
             [routerLink]="['/admin/tables']"
@@ -81,28 +81,6 @@
               "
             ></i>
             {{this.utilitiesService.getLanguage().sideBar.store}}
-          </a>
-        </li>
-
-        <li class="items-center">
-          <a
-            [routerLink]="['/admin/logistic']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #adminLogistic="routerLinkActive"
-            [ngClass]="
-              adminSettings.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-blueGray-700 hover:text-blueGray-500'
-            "
-          >
-            <i
-              class="fas fa-tools mr-2 text-sm"
-              [ngClass]="
-                adminLogistic.isActive ? 'opacity-75' : 'text-blueGray-300'
-              "
-            ></i>
-            {{this.utilitiesService.getLanguage().sideBar.logistic}}
           </a>
         </li>
 
@@ -131,7 +109,7 @@
       </ul>
 
       <hr class="my-4 md:min-w-full" />
-      
+
       <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
         <li class="items-center">
           <a
