@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('USER_ACTIVE', this._email);
     }
 
-    if(this.loginService.user === 'melisa' && this.loginService.password === '1234')  {
+    if(this.loginService.user === 'melisa@gmail.com' && this.loginService.password === '1234')  {
       localStorage.setItem('USER_ACTIVE', this._email);
       this.loginService.tokenSecret = 'TestCode';
       this.loginService.rol = '1';
