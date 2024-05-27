@@ -44,8 +44,8 @@ export class CardTableComponent implements OnInit {
 
   getCategories(): void {
     for (const item of this.product) {
-      if (!this.categoryList.includes(item.detail.category)) {
-        this.categoryList.push(item.detail.category);
+      if (!this.categoryList.includes(item.NIT)) {
+        this.categoryList.push(item.NIT);
       }
     }
   }
