@@ -99,41 +99,36 @@
         </tr>
         </thead>
         <tbody>
-        <tr (click)="checkDetailProduct(i)" *ngFor="let item of productsTmp; index as i;">
+        <tr *ngFor="let item of productsTmp; index as i;">
           <th
             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
           >
-            <img
-              src={{item.imageProduct}}
-              class="h-12 w-12 bg-white rounded-full border"
-              alt="..."
-            />
             <span
               class="ml-3 font-bold"
               [ngClass]="color === 'light' ? 'text-blueGray-600' : 'text-white'"
             >
-              {{item.product}}
+              {{item.RAZON_SOCIAL}}
             </span>
           </th>
           <td
             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
           >
-            {{item.store}}
+            {{item.RESOLUCION}}
           </td>
           <td
             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-          >{{item.supplier}}
+          >{{item.FECHA}}
           </td>
           <td
             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
           >
-            {{item.importer}}
+            {{item.PUBLICACION}}
           </td>
           <td
             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
           >
             <div class="flex items-center">
-              <span class="mr-2"> {{item.amount}}</span>
+              <span class="mr-2"> {{item.INVENTARIO}}</span>
             </div>
           </td>
         </tr>
