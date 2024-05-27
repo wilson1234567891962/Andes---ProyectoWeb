@@ -40,6 +40,11 @@ export class LoginService {
     return this.communicatorService.http_post(this.URL_SERVICES + 'forgetPassword/', body);
   }
 
+
+  getConfigJson(): Observable<any>  {
+    return this.communicatorService.http_get('https://wilson1234567891962.github.io/Andes---ProyectoWeb/assets/config/data.json');
+  }
+
   get user(): string {
     return this._user;
   }
