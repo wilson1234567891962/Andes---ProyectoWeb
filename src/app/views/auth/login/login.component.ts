@@ -48,15 +48,13 @@ export class LoginComponent implements OnInit {
     if(this._isChecked)  {
       localStorage.setItem('USER_ACTIVE', this._email);
     }
-    this.loginService.login().subscribe(result => {
-      this.loginService.tokenSecret = result.data.token;
-      this.loginService.rol = result.data.rol;
+
+    if(this.loginService.user === 'melisa' && this.loginService.password === '1234')  {
+      localStorage.setItem('USER_ACTIVE', this._email);
+      this.loginService.tokenSecret = 'TestCode';
+      this.loginService.rol = '1';
       this.router.navigate(['admin/tables']);
-    }, error => {
-      this.toastr.error(error.error.code +': ' +  error.error.message, 'Error', {
-        timeOut: 7000,
-      });
-    })
+    }
   }
 
 
