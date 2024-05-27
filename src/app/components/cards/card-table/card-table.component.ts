@@ -52,15 +52,9 @@ export class CardTableComponent implements OnInit {
 
   getStore(): void {
     if (this.storeService.product === undefined) {
-      this.storeService.getStore(this.loginService.tokenSecret).subscribe(it => {
-        this.storeService.product = it.data;
-        this.product = it.data;
-        this.setProduct();
-      }, error => {
-        this.toastr.error(error.error.code +': ' +  error.error.message, 'Error', {
-          timeOut: 7000,
-        });
-      })
+      this.storeService.product = it.data;
+      this.product = it.data;
+      this.setProduct();
 
     } else {
       this.product = this.storeService.product;
