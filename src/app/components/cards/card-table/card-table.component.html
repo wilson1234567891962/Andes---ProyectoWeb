@@ -99,7 +99,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of productsTmp; index as i;">
+        <tr (click)="checkDetailProduct(i)" *ngFor="let item of productsTmp; index as i;">
           <th
             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
           >
@@ -232,7 +232,7 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
             >
-              {{utilitiesService.getLanguage().store.category}}
+              CIUDAD
             </th>
             <th
               class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -242,42 +242,25 @@
                 : 'bg-red-800 text-red-300 border-red-700'
             "
             >
-              {{utilitiesService.getLanguage().store.expired}}
+              INVENTARIO
             </th>
-            <th
-              class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              [ngClass]="
-              color === 'light'
-                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                : 'bg-red-800 text-red-300 border-red-700'
-            "
-            >
-              {{utilitiesService.getLanguage().store.located}}
-            </th>
+
           </tr>
           </thead>
           <tbody>
-          <tr
-            [ngClass]="
-          checkExpiration(detailProduct.expiration)
-          ?'text-red-600 border-red-700'
-          :'bg-blueGray-50 text-blueGray-500 border-blueGray-100'">
+          <tr>
 
             <td
               class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{detailProduct.category}}
+              {{detailProduct.PAIS}}
             </td>
             <td
               class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{detailProduct.expiration }}
+              {{detailProduct.INVENTARIO }}
             </td>
-            <td
-              class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              {{detailProduct.locate}}
-            </td>
+
           </tr>
           </tbody>
         </table>

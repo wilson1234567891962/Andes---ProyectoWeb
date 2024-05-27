@@ -113,7 +113,7 @@ export class CardTableComponent implements OnInit {
 
   checkDetailProduct(index) {
     this.visibleDetail = true;
-    this.detailProduct = this.productsTmp[index].detail;
+    this.detailProduct = this.productsTmp[index];
   }
 
   search() {
