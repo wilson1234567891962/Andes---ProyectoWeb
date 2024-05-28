@@ -54,7 +54,11 @@ export class LoginComponent implements OnInit {
       this.loginService.tokenSecret = 'TestCode';
       this.loginService.rol = '1';
       this.router.navigate(['admin/tables']);
+      return;
     }
+    this.toastr.error('Uusario o contraseña invalida', 'Error', {
+      timeOut: 7000,
+    });
   }
 
 
